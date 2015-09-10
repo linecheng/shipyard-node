@@ -7,16 +7,46 @@ var docker = new Docker({
 	serviceKey:"7ER9.xwdkdrVzrN.UEb1rBaRGR.1rnRJOqFe"
 });
 
-docker.createContainer({
-	Image:"cjt01/static_web",
-	Cmd:['/bin/bash'],
-	name:"myshipyardtest7",
-	ShipyardExt:{
-		Type:"service"
-	}
-},function(data){
-	console.log(data)
-})
+// docker.createContainer({
+// 	Image:"cjt01/static_web",
+// 	Cmd:['/bin/bash'],
+// 	name:"myshipyardtest7",
+// 	ShipyardExt:{
+// 		Type:"service"
+// 	}
+// },function(data){
+// 	console.log(data)
+// })
+
+
+// docker.createContainer({
+// 	Image:'ubuntu',
+// 	AttachStdin:false,
+// 	AttachStdout:true,
+// 	Tty:true,
+// 	Cmd:['/bin/bash','-c','tail -f /var/log/dmesg'],
+// 	OpenStdin:false,
+// 	StdinOnce:false,
+// 	name:"myshipyardtest8",
+// 	ShipyardExt:{
+// 	Type:"service"
+// 	}
+// },function (err,container){
+// 	console.log(err)
+// 	console.log("-----")
+// 	console.log(container)
+// 	// if(data.statusCode!=201) done(err);
+// 	// testContainer=container.id;
+// 	//done();
+// });
+
+var testContainer="114eb5c2b74ffe7977ff22c269f42ceb0487f1f60e004699d4d3746397737f5e";
+      var container = docker.getContainer(testContainer);
+      container.start(function(err,data){
+            console.log(err)
+            console.log("-----")
+            console.log(data)
+      });
 
 // docker.listContainers(function (err,containers) {
 // 	containers.forEach(function	(info,index){

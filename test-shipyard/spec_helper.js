@@ -19,6 +19,7 @@ var serviceKey="7ER9.xwdkdrVzrN.UEb1rBaRGR.1rnRJOqFe"
 if (!isSocket) {
   console.log('Trying TCP connection... host is '+tcphost +' post is'+tcpport +' service key is '+serviceKey);
   
+  
   docker = new Docker({host:tcphost,port:tcpport,serviceKey:serviceKey});
   dockert = new Docker({host:tcphost,port:tcpport,timeout: 1,serviceKey:serviceKey});
 } else {

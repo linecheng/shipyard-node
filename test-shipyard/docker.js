@@ -1,25 +1,49 @@
 /*jshint -W030 */
 
 var chai = require('chai');
-var expect =chai.expect;
-var assert=chai.assert; 
+var expect = chai.expect;
+var assert = chai.assert;
 var docker = require('./spec_helper').docker;
 
 var testImage = 'ubuntu:14.04';
 
-describe("#docker",function(){
-  describe("#ping",function(){
-      var server="cjt-local";
-      it("ping server "+server,function(done){
-        this.timeout(30000);
-        docker.ping(server,function(err,data){
-            expect(err).to.be.null;
-            //console.log(data)
-            assert.equal(data,"OK","ping "+server +" result should be Ok");
-            done();
-        });
+describe("#docker", function () {
+
+  describe("#ping", function () {
+    var server = "cjt-local";
+    it("ping server " + server, function (done) {
+      this.timeout(30000);
+      docker.ping(server, function (err, data) {
+        expect(err).to.be.null;
+        //console.log(data)
+        assert.equal(data, "OK", "ping " + server + " result should be Ok");
+        done();
       });
+    });
   });
+
+  describe("#version", function () {
+    var server = "cjt-local";
+    it("show version " + server, function (done) {
+      docker.version(server, function (err, data) {
+        expect(err).to.be.null;
+
+        done();
+      });
+    });
+  });
+
+  describe("#info", function () {
+    var server = "cjt-local";
+    it("show info " + server, function (done) {
+      docker.info(server, function (err, data) {
+        expect(err).to.be.null;
+
+        done();
+      });
+    });
+  });
+
 });
 
 
