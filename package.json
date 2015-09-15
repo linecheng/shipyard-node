@@ -1,14 +1,14 @@
 {
-  "name": "dockerode",
-  "description": "Docker Remote API module.",
-  "version": "2.2.2",
-  "author": "Pedro Dias <petermdias@gmail.com>",
+  "name": "shipyardnode",
+  "description": "Shipyard Remote API module.",
+  "version": "1.0.0",
+  "author": "chenjt <chengjt@csdn.net>",
   "maintainers": [
-    "apocas <petermdias@gmail.com>"
+    "chengjt <chengjt@csdn.net>"
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/apocas/dockerode.git"
+    "url": "http://github.com/linecheng/shipyard-node.git"
   },
   "keywords": [
     "docker",
