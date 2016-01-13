@@ -2,9 +2,9 @@ var Docker = require('../lib/docker');
 
 
 var docker = new Docker({
-	host:'http://192.168.5.152',
-	port:8081,
-	serviceKey:"7ER9.xwdkdrVzrN.UEb1rBaRGR.1rnRJOqFe"
+      host: '192.168.5.55',
+      port: 8080,
+      serviceKey: "HKTAuK3NMUWlzxiF2yfWXgoW3VG1z2UjI83G"
 });
 
 // docker.createContainer({
@@ -40,13 +40,27 @@ var docker = new Docker({
 // 	//done();
 // });
 
-var testContainer="114eb5c2b74ffe7977ff22c269f42ceb0487f1f60e004699d4d3746397737f5e";
-      var container = docker.getContainer(testContainer);
-      container.start(function(err,data){
-            console.log(err)
-            console.log("-----")
-            console.log(data)
-      });
+var testContainer = "56334a2a3b9fed519b000001";
+var container = docker.getContainer(testContainer);
+
+container.inspect(function (err, data) {
+      
+      if(err){
+            if (err.statusCode==449){
+                  console.log(JSON.stringify(err))
+            } 
+      }
+      
+      console.log("获得" + containerid + "inspect 信息为");
+      console.log(data);
+});
+      
+      
+      // container.start(function(err,data){
+      //       console.log(err)
+      //       console.log("-----")
+      //       console.log(data)
+      // });
 
 // docker.listContainers(function (err,containers) {
 // 	containers.forEach(function	(info,index){
