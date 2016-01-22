@@ -23,7 +23,7 @@ Why `dockerode` is different from other Docker node.js modules:
 
 ## Usage
 
- * Input options are directly passed to Docker. Check [Docker Remote API documentation](https://docs.docker.com/reference/api/docker_remote_api/) for more details.
+ * Input options are directly passed to Docker. Check [Docker Remote API documentation](https://docs.docker.com/engine/reference/api/docker_remote_api/) for more details.
  * Return values are unchanged from Docker, official Docker documentation will also apply to them.
  * Check the tests and examples folder for more examples.
 
@@ -151,6 +151,26 @@ docker.createImage({fromImage: 'ubuntu'}, function (err, stream) {
 //...
 ```
 
+There is also support for [HTTP connection hijacking](https://docs.docker.com/engine/reference/api/docker_remote_api_v1.22/#3-2-hijacking),
+which allows for cleaner interactions with commands that work with stdin and stdout separately.
+
+```js
+docker.createContainer({Tty: false, /*... other options */}, function(err, container) {
+  container.exec({Cmd: ['shasum', '-'], AttachStdin: true, AttachStdout: true}, function(err, exec) {
+    exec.start({hijack: true, stdin: true}, function(err, stream) {
+      // shasum can't finish until after its stdin has been closed, telling it that it has
+      // read all the bytes it needs to sum. Without a socket upgrade, there is no way to
+      // close the write-side of the stream without also closing the read-side!
+      fs.createReadStream('node-v5.1.0.tgz', 'binary').pipe(stream);
+
+      // Fortunately, we have a regular TCP socket now, so when the readstream finishes and closes our
+      // stream, it is still open for reading and we will still get our results :-)
+      docker.modem.demuxStream(stream, process.stdout, process.stderr);
+    });
+  });
+});
+```
+
 ### Equivalent of `docker run` in `dockerode`:
 
 * `image` - container image
@@ -192,7 +212,7 @@ docker.run('ubuntu', ['bash', '-c', 'uname -a'], [process.stdout, process.stderr
 * `callback` - callback called when execution ends.
 
 ``` js
-docker.pull('myrepo/myname:tag', function (err, stream) {  
+docker.pull('myrepo/myname:tag', function (err, stream) {
   // streaming output from pull...
 });
 ```
@@ -259,9 +279,8 @@ container.attach({
 
 ## Tests
 
-`docker pull ubuntu:latest` to prepare your system for the tests.
-
-Tests are implemented using `mocha` and `chai`. Run them with `npm test`.
+ * `docker pull ubuntu:latest` to prepare your system for the tests.
+ * Tests are implemented using `mocha` and `chai`. Run them with `npm test`.
 
 ## Examples
 

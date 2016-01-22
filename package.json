@@ -1,7 +1,7 @@
 {
   "name": "shipyardnode",
   "description": "Shipyard Remote API module.",
-  "version": "1.0.0",
+  "version": "2.2.9",
   "author": "chenjt <chengjt@csdn.net>",
   "maintainers": [
     "chengjt <chengjt@csdn.net>"
@@ -15,7 +15,7 @@
     "docker.io"
   ],
   "dependencies": {
-    "docker-modem": "0.2.x"
+    "docker-modem": "0.3.x"
   },
   "devDependencies": {
     "chai": "~1.7.0",
