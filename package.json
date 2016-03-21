@@ -1,5 +1,5 @@
 {
-  "name": "shipyardnode",
+  "name": "@csdn/shipyard-node",
   "description": "Shipyard Remote API module.",
   "version": "2.2.9",
   "author": "chenjt <chengjt@csdn.net>",
